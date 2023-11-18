@@ -14,7 +14,7 @@ Content-Type: application/json
 
 
 ### 2. 상품을 장바구니에 넣기
-POST http://localhost:9090/products/1/carts
+POST http://localhost:8080/products/1/carts
 Content-Type: application/json
 Authorization: {{access_token}}
 
@@ -23,7 +23,7 @@ Authorization: {{access_token}}
 }
 
 ### 2.2 상품을 장바구니에 넣기
-POST http://localhost:9090/products/2/carts
+POST http://localhost:8080/products/2/carts
 Content-Type: application/json
 Authorization: {{access_token}}
 
@@ -32,7 +32,7 @@ Authorization: {{access_token}}
 }
 
 ### 2.3 상품을 장바구니에 넣기
-POST http://localhost:9090/products/3/carts
+POST http://localhost:8080/products/3/carts
 Content-Type: application/json
 Authorization: {{access_token}}
 
@@ -41,7 +41,7 @@ Authorization: {{access_token}}
 }
 
 ### 3. 장바구니 상품 수량 수정
-POST http://localhost:9090/carts/1
+POST http://localhost:8080/carts/9
 Content-Type: application/json
 Authorization: {{access_token}}
 
@@ -50,12 +50,12 @@ Authorization: {{access_token}}
 }
 
 ### 4. 장바구니 상품 삭제
-DELETE http://localhost:9090/carts/1
+DELETE http://localhost:8080/carts/8
 Content-Type: application/json
 Authorization: {{access_token}}
 
 ### 5. 장바구니 수량 0 수정시 상품 삭제 테스트 : 5개 장바구니 넣기
-POST http://localhost:9090/products/4/carts
+POST http://localhost:8080/products/4/carts
 Content-Type: application/json
 Authorization: {{access_token}}
 
@@ -64,7 +64,7 @@ Authorization: {{access_token}}
 }
 
 ### 5.1 장바구니 수량 0 수정시 상품 삭제 테스트 : 장바구니에서 5개 빼기
-POST http://localhost:9090/carts/6
+POST http://localhost:8080/carts/6
 Content-Type: application/json
 Authorization: {{access_token}}
 
@@ -74,5 +74,5 @@ Authorization: {{access_token}}
 
 
 ### 5.2 장바구니 조회
-GET http://localhost:9090/carts
+GET http://localhost:8080/carts
 Authorization: {{access_token}}
