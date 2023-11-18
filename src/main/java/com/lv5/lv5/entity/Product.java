@@ -17,7 +17,7 @@ public class Product {
     private String name;
 
     @Column(name = "price")
-    private String price;
+    private int price; // String 이였어요
 
     @Column(name = "quantity")
     private int quantity;
