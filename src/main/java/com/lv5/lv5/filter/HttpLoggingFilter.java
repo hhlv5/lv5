@@ -55,7 +55,8 @@ public class HttpLoggingFilter extends OncePerRequestFilter {
 			MediaType.APPLICATION_JSON, // json
 			MediaType.APPLICATION_XML, // xml
 			MediaType.TEXT_PLAIN, // text/plain
-			MediaType.TEXT_HTML // text/html
+			MediaType.TEXT_HTML, // text/html
+			MediaType.APPLICATION_FORM_URLENCODED // unrecoreded xxx form
 		);
 
 		return VISIBLE_TYPES.stream().anyMatch((visibleType) -> visibleType.includes(mediaType));
