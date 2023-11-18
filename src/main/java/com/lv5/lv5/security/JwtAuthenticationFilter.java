@@ -9,6 +9,7 @@ import org.springframework.security.web.authentication.UsernamePasswordAuthentic
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.lv5.lv5.dto.user.LoginRequestDto;
+import com.lv5.lv5.entity.UserRoleEnum;
 import com.lv5.lv5.jwt.JwtUtil;
 
 import jakarta.servlet.FilterChain;
@@ -33,12 +34,7 @@ public class JwtAuthenticationFilter extends UsernamePasswordAuthenticationFilte
 			log.info("requestDto : " + requestDto);
 
 			return getAuthenticationManager().authenticate(
-				new UsernamePasswordAuthenticationToken(
-					requestDto.getUsername(),
-					requestDto.getPassword(),
-					null
-				)
-			);
+				new UsernamePasswordAuthenticationToken(requestDto.getEmail(), requestDto.getPassword(), null));
 		} catch (IOException e) {
 			log.error(e.getMessage());
 			throw new RuntimeException(e.getMessage());
@@ -48,14 +44,13 @@ public class JwtAuthenticationFilter extends UsernamePasswordAuthenticationFilte
 	@Override
 	protected void successfulAuthentication(HttpServletRequest request, HttpServletResponse response, FilterChain chain,
 		Authentication authResult) {
+
 		String username = ((UserDetailsImpl)authResult.getPrincipal()).getUsername();
+		UserRoleEnum role = ((UserDetailsImpl)authResult.getPrincipal()).getUser().getRole();
 
-		// TODO: 2023-11-18 User Role 처리
-		//UserRoleEnum role = ((UserDetailsImpl)authResult.getPrincipal()).getUser().getRole();
-
-		//String token = jwtUtil.createToken(username, role);
-		//log.info("token : " + token);
-		//response.addHeader(JwtUtil.AUTHORIZATION_HEADER, token);
+		String token = jwtUtil.createToken(username, role);
+		log.info("token : " + token);
+		response.addHeader(JwtUtil.AUTHORIZATION_HEADER, token);
 	}
 
 	@Override
