@@ -1,6 +1,7 @@
 package com.lv5.lv5.dto;
 
-import com.project.springshop.entity.Product;
+import com.lv5.lv5.entity.Product;
+
 import lombok.Getter;
 
 @Getter
