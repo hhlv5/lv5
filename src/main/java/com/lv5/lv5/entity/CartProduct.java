@@ -27,10 +27,11 @@ public class CartProduct {
 	@JoinColumn(name = "product_id")
 	private Product product;
 
-	private Integer quantity;
+	private int quantity;
 
 	public CartProduct(Product product) {
 		this.product = product;
+		this.quantity = 0;
 	}
 
 	public CartProduct addToCart(Cart cart){

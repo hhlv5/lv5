@@ -19,7 +19,9 @@ import com.lv5.lv5.repository.ProductRepository;
 import com.lv5.lv5.security.UserDetailsImpl;
 
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 
+@Slf4j(topic = "CartService")
 @Service
 @RequiredArgsConstructor
 public class CartService {
@@ -30,7 +32,7 @@ public class CartService {
 
 	public CartResponseDto getMyCart(User user) {
 		Optional<Cart> findCart = cartRepository.findByUserId(user.getId());
-		if(!findCart.isPresent()){ // 아직 user에게 카트가 없음
+		if (!findCart.isPresent()) { // 아직 user에게 카트가 없음
 			Cart cart = new Cart(user);
 			return new CartResponseDto(cartRepository.save(cart));
 		}
@@ -38,27 +40,39 @@ public class CartService {
 	}
 
 	@Transactional
-	public void addToCart(CartAddRequestDto cartAddRequestDto, User user) {
-		Cart cart = cartRepository.findByUserId(user.getId())
-			.orElseThrow(() -> new NullPointerException("장바구니를 찾을 수 없습니다."));
+	public void addToCart(Long productId, CartAddRequestDto cartAddRequestDto, User user) {
+		Cart cart;
+		Optional<Cart> findCart = cartRepository.findByUserId(user.getId());
+		cart = findCart.orElseGet(() -> {
+			log.info("회원의 장바구니가 없는 버그 발생");
+			return cartRepository.save(new Cart(user));
+		});
 
-		Long productId = cartAddRequestDto.getProductId();
 		int quantity = cartAddRequestDto.getQuantity();
 
-		Optional<CartProduct> findCartProduct = cart.getCartProducts().stream()
-			.filter(cartProduct -> Objects.equals(cartProduct.getProduct().getProductId(), productId))
-			.findFirst();
+		Optional<CartProduct> findCartProduct = findCartProductInCartProduct(productId, cart);
 
-		if (findCartProduct.isPresent()) { // 존재하는 경우 개수만 증가
-			findCartProduct.get().addQuantity(quantity);
+		if (findCartProduct.isPresent()) { // 이미 장바구니에 존재하는 경우 개수 증가
+			addQuantity(findCartProduct.get(), quantity);
 		} else { // 장바구니에 해당 상품이 담겨있지 않은 경우
-			Product product = productRepository.findProductByProductId(productId)
+			Product product = productRepository.findProduct(productId)
 				.orElseThrow(() -> new NullPointerException("존재하지 않는 상품입니다."));
 
 			CartProduct cartProduct = new CartProduct(product);
-			cartProduct.addToCart(cart).addQuantity(quantity);
+			cartProduct.addToCart(cart).updateQuantity(quantity);
 			cartProductRepository.save(cartProduct);
 		}
+	}
+
+	private void addQuantity(CartProduct findCartProduct, int quantity) {
+		findCartProduct.addQuantity(quantity);
+	}
+
+	private Optional<CartProduct> findCartProductInCartProduct(Long productId, Cart cart) {
+		return cart.getCartProducts()
+			.stream()
+			.filter(cartProduct -> Objects.equals(cartProduct.getProduct().getProductId(), productId))
+			.findFirst();
 	}
 
 	@Transactional
@@ -69,6 +83,10 @@ public class CartService {
 
 		int changeQuantity = changeQuantityRequstDto.getQuantity();
 		findCartProduct.updateQuantity(changeQuantity);
+
+		if (findCartProduct.getQuantity() <= 0) { // 개수 변경 후 0 이하이면 삭제
+			cartProductRepository.delete(findCartProduct);
+		}
 	}
 
 	public void deleteCartProduct(Long cartProductId, UserDetailsImpl userDetails) {

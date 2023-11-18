@@ -16,4 +16,5 @@ public interface ProductRepository extends JpaRepository<Product, Long> {
 
     @Query(value = "SELECT * FROM products", nativeQuery = true)
     Page<Product> findAllProduct(Pageable pageable);
+
 }

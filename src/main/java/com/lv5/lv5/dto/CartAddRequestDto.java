@@ -6,6 +6,5 @@ import lombok.NoArgsConstructor;
 @Getter
 @NoArgsConstructor
 public class CartAddRequestDto {
-	private Long productId;
 	private int quantity;
 }

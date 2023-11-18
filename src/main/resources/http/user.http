@@ -1,10 +1,10 @@
-### 1. 로그인
+### 1. 회원가입 테스트1
 
 POST http://localhost:9090/api/user/signup
 Content-Type: application/json
 
 {
-    "name":"pjm9673@gmail.com",
+    "email":"pjm9673@gmail.com",
     "password":"@Qkrwjdals96",
     "phoneNumber":"010-1111-1111",
     "address":"한국 서울",
@@ -16,11 +16,11 @@ POST http://localhost:9090/api/user/signup
 Content-Type: application/json
 
 {
-"name":"admin@gmail.com",
-"password":"@Qkrwjdals96",
-"phoneNumber":"010-9999-1111",
-"address":"한국 서울",
-"role":"ADMIN"
+    "email":"admin@gmail.com",
+    "password":"@Qkrwjdals96",
+    "phoneNumber":"010-9999-1111",
+    "address":"한국 서울",
+    "role":"ADMIN"
 }
 
 ### 2. 로그인 테스트
@@ -28,6 +28,11 @@ POST http://localhost:9090/api/user/login
 Content-Type: application/json
 
 {
-  "username":"ribbon29@naver.com",
+  "email":"pjm9673@gmail.com",
   "password":"@Qkrwjdals96"
 }
+
+> {%
+ client.global.set("access_token", response.headers.valueOf("Authorization"));
+ client.log(client.global.get("access_token"));
+ %}

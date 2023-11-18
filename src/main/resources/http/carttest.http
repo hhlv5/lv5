@@ -1,10 +1,10 @@
-### 1.로그인 후 토큰 받기
-POST http://localhost:8080/api/user/login
+### 0.로그인후 토큰 받기
+POST http://localhost:9090/api/user/login
 Content-Type: application/json
 
 {
-    "email": "test@test.com",
-    "password": "test1"
+  "email":"pjm9673@gmail.com",
+  "password":"@Qkrwjdals96"
 }
 
 > {%
@@ -12,18 +12,67 @@ Content-Type: application/json
     client.log(client.global.get("access_token"));
 %}
 
-### 2. 카트조회
 
-GET http://localhost:8080/carts
-Authorization: {{access_token}}
-
-
-### 3. 상품을 장바구니에 넣기
-POST http://localhost:8080/products/cart
+### 2. 상품을 장바구니에 넣기
+POST http://localhost:9090/products/1/carts
 Content-Type: application/json
 Authorization: {{access_token}}
 
 {
-  "productId": 1,
   "quantity" : 1
 }
+
+### 2.2 상품을 장바구니에 넣기
+POST http://localhost:9090/products/2/carts
+Content-Type: application/json
+Authorization: {{access_token}}
+
+{
+  "quantity" : 7
+}
+
+### 2.3 상품을 장바구니에 넣기
+POST http://localhost:9090/products/3/carts
+Content-Type: application/json
+Authorization: {{access_token}}
+
+{
+  "quantity" : 10
+}
+
+### 3. 장바구니 상품 수량 수정
+POST http://localhost:9090/carts/1
+Content-Type: application/json
+Authorization: {{access_token}}
+
+{
+  "quantity" : 2
+}
+
+### 4. 장바구니 상품 삭제
+DELETE http://localhost:9090/carts/1
+Content-Type: application/json
+Authorization: {{access_token}}
+
+### 5. 장바구니 수량 0 수정시 상품 삭제 테스트 : 5개 장바구니 넣기
+POST http://localhost:9090/products/4/carts
+Content-Type: application/json
+Authorization: {{access_token}}
+
+{
+  "quantity" : 5
+}
+
+### 5.1 장바구니 수량 0 수정시 상품 삭제 테스트 : 장바구니에서 5개 빼기
+POST http://localhost:9090/carts/6
+Content-Type: application/json
+Authorization: {{access_token}}
+
+{
+  "quantity" : 1
+}
+
+
+### 5.2 장바구니 조회
+GET http://localhost:9090/carts
+Authorization: {{access_token}}

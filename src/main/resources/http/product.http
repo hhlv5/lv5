@@ -1,7 +1,23 @@
+### 0.로그인후 토큰 받기
+POST http://localhost:9090/api/user/login
+Content-Type: application/json
+
+{
+  "email":"pjm9673@gmail.com",
+  "password":"@Qkrwjdals96"
+}
+
+> {%
+    client.global.set("access_token", response.headers.valueOf("Authorization"));
+    client.log(client.global.get("access_token"));
+%}
+
+
 ### 1. 상품등록 API
 
 POST http://localhost:9090/products/register
 Content-Type: application/json
+Authorization: {{access_token}}
 
 {
     "name":"나이키 데이브레이크 CK2351 101",
@@ -14,6 +30,7 @@ Content-Type: application/json
 ### 1-1. 상품등록2 API
 POST http://localhost:9090/products/register
 Content-Type: application/json
+Authorization: {{access_token}}
 
 {
   "name":"애플워치 SE4",
@@ -23,12 +40,16 @@ Content-Type: application/json
   "category":"디지털/가전"
 }
 
+
 ### 2. 선택한 상품조회 API
 GET http://localhost:9090/products/2
-
+Authorization: {{access_token}}
 
 ### 3. 상품조회 API
 GET http://localhost:9090/products
+Authorization: {{access_token}}
+
 
 ### 4. 상품 페이징 처리
 GET http://localhost:9090/products?page=0&orderby=price&sort=ASC
+Authorization: {{access_token}}
