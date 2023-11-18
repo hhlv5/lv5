@@ -1,0 +1,19 @@
+### 1. 상품등록 API
+
+POST http://localhost:9090/products/register
+Content-Type: application/json
+
+{
+    "name":"나이키 데이브레이크 CK2351 101",
+    "price":74350,
+    "quantity":1,
+    "info":"NIKE 운동화",
+    "category":"스포츠"
+}
+
+### 2. 선택한 상품조회 API
+GET http://localhost:9090/products/1
+
+
+### 3. 상품조회 API
+GET http://localhost:9090/products
