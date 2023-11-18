@@ -16,10 +16,10 @@ POST http://localhost:9090/products/register
 Content-Type: application/json
 
 {
-  "name":"애플워치 SE",
-  "price":3800000,
+  "name":"애플워치 SE4",
+  "price":4200000,
   "quantity":1,
-  "info":"애플워치",
+  "info":"신제품 애플워치",
   "category":"디지털/가전"
 }
 
@@ -29,3 +29,6 @@ GET http://localhost:9090/products/1
 
 ### 3. 상품조회 API
 GET http://localhost:9090/products
+
+### 4. 상품 페이징 처리
+GET http://localhost:9090/products?page=0&orderby=price&sort=ASC

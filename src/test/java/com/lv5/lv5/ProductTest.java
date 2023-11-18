@@ -8,6 +8,8 @@ import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.data.domain.Page;
+import org.springframework.test.annotation.Rollback;
 
 @SpringBootTest
 public class ProductTest {
@@ -23,5 +25,25 @@ public class ProductTest {
 
         System.out.println(product.getName());
         System.out.println(product.getCategory());
+    }
+
+    @Test
+    @Rollback(value = false)
+    @DisplayName("페이징 테스트")
+    void test(){
+        Page<ProductResponseDto> responseDtoList =
+                productService.getProducts(0, "price", "ASC");
+
+        System.out.println(responseDtoList.get().toList());
+    }
+
+    @Test
+    @Rollback(value = false)
+    @DisplayName("페이징 테스트 오류")
+    void test2(){
+        Page<ProductResponseDto> responseDtoList =
+                productService.getProducts(0, "category", "ASC");
+
+        System.out.println(responseDtoList.get().toList());
     }
 }

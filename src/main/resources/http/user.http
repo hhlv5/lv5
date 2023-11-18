@@ -1,0 +1,33 @@
+### 1. 로그인
+
+POST http://localhost:9090/api/user/signup
+Content-Type: application/json
+
+{
+    "name":"pjm9673@gmail.com",
+    "password":"@Qkrwjdals96",
+    "phoneNumber":"010-1111-1111",
+    "address":"한국 서울",
+    "role":"ADMIN"
+}
+
+### 1. 회원가입 테스트2
+POST http://localhost:9090/api/user/signup
+Content-Type: application/json
+
+{
+"name":"admin@gmail.com",
+"password":"@Qkrwjdals96",
+"phoneNumber":"010-9999-1111",
+"address":"한국 서울",
+"role":"ADMIN"
+}
+
+### 2. 로그인 테스트
+POST http://localhost:9090/api/user/login
+Content-Type: application/json
+
+{
+  "username":"ribbon29@naver.com",
+  "password":"@Qkrwjdals96"
+}
