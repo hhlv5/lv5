@@ -19,12 +19,13 @@ public class ProductService {
         return new ProductResponseDto(productRepository.save(new Product(requestDto)));
     }
 
-    public List<ProductResponseDto> getProducts() {
-        return productRepository.findAll().stream().map(ProductResponseDto::new).toList();
+    // TO DO. 수정 필
+    public ProductResponseDto findProduct(Long productId) {
+        return new ProductResponseDto(productRepository.findProduct(productId)
+                .orElseThrow(() -> new IllegalArgumentException("해당 강의를 찾을 수 없습니다.")));
     }
 
-    public ProductResponseDto getProduct(Long productId) {
-        return new ProductResponseDto(productRepository.findProductByProductId(productId)
-                .orElseThrow(() -> new EntityNotFoundException("해당 상품을 찾을 수 없습니다.")));
+    public List<ProductResponseDto> getProducts() {
+        return productRepository.findAll().stream().map(ProductResponseDto::new).toList();
     }
 }

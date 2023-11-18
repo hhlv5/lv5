@@ -11,6 +11,18 @@ Content-Type: application/json
     "category":"스포츠"
 }
 
+### 1-1. 상품등록2 API
+POST http://localhost:9090/products/register
+Content-Type: application/json
+
+{
+  "name":"애플워치 SE",
+  "price":3800000,
+  "quantity":1,
+  "info":"애플워치",
+  "category":"디지털/가전"
+}
+
 ### 2. 선택한 상품조회 API
 GET http://localhost:9090/products/1
 
