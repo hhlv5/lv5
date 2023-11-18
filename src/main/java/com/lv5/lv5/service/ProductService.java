@@ -30,11 +30,6 @@ public class ProductService {
                 .orElseThrow(() -> new IllegalArgumentException("해당 강의를 찾을 수 없습니다.")));
     }
 
-//    public List<ProductResponseDto> getProducts() {
-//        return productRepository.findAll().stream().map(ProductResponseDto::new).toList();
-//    }
-
-
     @Transactional(readOnly = true)
     public Page<ProductResponseDto> getProducts(int pageNo, String criteria, String sort){
         checkCriteria(criteria);

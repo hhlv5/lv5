@@ -8,9 +8,6 @@ import org.springframework.data.domain.Page;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-
-import java.util.List;
-
 @RestController
 @RequiredArgsConstructor
 @RequestMapping("/products")
@@ -22,9 +19,9 @@ public class ProductController {
         return new ResponseEntity(productService.registerProduct(requestDto), HttpStatus.OK);
     }
 
-    @GetMapping("/{productId})")
-    public ResponseEntity<ProductResponseDto> findProduct(@PathVariable Long productId){
-        return new ResponseEntity<>(productService.findProduct(productId), HttpStatus.OK);
+    @GetMapping("/{productId}")
+    public ResponseEntity findProduct(@PathVariable Long productId){
+        return new ResponseEntity(productService.findProduct(productId), HttpStatus.OK);
     }
 
     @GetMapping("")

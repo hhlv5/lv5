@@ -24,7 +24,7 @@ Content-Type: application/json
 }
 
 ### 2. 선택한 상품조회 API
-GET http://localhost:9090/products/1
+GET http://localhost:9090/products/2
 
 
 ### 3. 상품조회 API
