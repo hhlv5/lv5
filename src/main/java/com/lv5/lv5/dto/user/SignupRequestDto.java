@@ -14,7 +14,7 @@ import lombok.Setter;
 public class SignupRequestDto {
 	@Email
 	@NotBlank
-	private String username;
+	private String email;
 
 	@NotBlank
 	private String password;
@@ -27,4 +27,5 @@ public class SignupRequestDto {
 
 	@NotNull
 	private UserRoleEnum role;
+
 }
