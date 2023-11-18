@@ -11,5 +11,8 @@ spring:
       local:
         - secret
         - common
+      prd:
+        - secret
+        - common
 
 
