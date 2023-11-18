@@ -1,13 +1,6 @@
 spring:
   profiles:
     active: dev
-  config:
-    import:
-      - application-local.yml
-      - application-secret.yml
-  datasource:
-    driver-class-name: com.mysql.cj.jdbc.Driver
-    url: jdbc:mysql://localhost:3306/lv5
   jpa:
     properties:
       hibernate:
