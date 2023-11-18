@@ -10,7 +10,9 @@ import com.lv5.lv5.entity.User;
 import com.lv5.lv5.repository.UserRepository;
 
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 
+@Slf4j(topic = "UserService")
 @Service
 @RequiredArgsConstructor
 public class UserService {
@@ -19,19 +21,19 @@ public class UserService {
 	private final PasswordEncoder passwordEncoder;
 
 	public void signup(SignupRequestDto requestDto) {
-		String username = requestDto.getUsername();
+		String email = requestDto.getEmail();
 		String password = passwordEncoder.encode(requestDto.getPassword());
-
+		log.info("email : " + email);
 		// 회원 중복 확인
-		Optional<User> checkUsername = userRepository.findByUsername(username);
-		if (checkUsername.isPresent()) {
+		Optional<User> findUser = userRepository.findByEmail(email);
+		if (findUser.isPresent()) {
 			throw new IllegalArgumentException("중복된 사용자가 존재합니다.");
 		}
 
-		requestDto.setPassword(password);
 
 		// 사용자 등록
-		User user = new User(requestDto);
+		User user = new User(requestDto, password);
+
 		userRepository.save(user);
 	}
 
