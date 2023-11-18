@@ -1,0 +1,12 @@
+
+### 1. 회원가입
+POST http://localhost:8080/api/user/signup
+Content-Type: application/json
+
+{
+  "email" : "test@test.com",
+  "password" : "test1",
+  "phoneNumber" : "test1",
+  "address" : "test1",
+  "role" : "ADMIN"
+}
