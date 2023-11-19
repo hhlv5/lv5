@@ -3,16 +3,11 @@ spring:
     active: dev
     group:
       prod:
-        - secret
-        - common
       dev:
-        - secret
-        - common
       local:
-        - secret
-        - common
       prd:
-        - secret
-        - common
+    include:
+      - secret
+      - common
 
 
