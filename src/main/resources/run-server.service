@@ -1,0 +1,14 @@
+# /etc/systemd/system/your-service-name.service
+
+[Unit]
+Description=Your Spring Boot Service
+After=syslog.target
+
+[Service]
+User=your-username
+Environment="SPRING_PROFILES_ACTIVE=deploy"
+ExecStart=/usr/bin/java -jar /path/to/your/project/hanghaero-1.jar
+SuccessExitStatus=143
+
+[Install]
+WantedBy=multi-user.target
